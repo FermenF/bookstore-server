@@ -34,5 +34,5 @@ Route::prefix('/book')->group(function(){
     Route::get('/show/{id}', [BookController::class, 'show']);
     Route::put('/update/{id}', [BookController::class, 'update'])->middleware('auth:api');
     Route::delete('/delete/{id}', [BookController::class, 'destroy'])->middleware('auth:api');
-
+    Route::post('/recomended', [BookController::class, 'indexRandom']);
 });

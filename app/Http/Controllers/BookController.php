@@ -14,7 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::orderBy('id','desc')->paginate();
 
         if(!$books){
             return \response("Aun no se ha creado ningún libro.", 100);
@@ -95,6 +95,15 @@ class BookController extends Controller
         }else{
             $book->delete();
             return \response("El libro ha eliminado correctamente.", 200);
+        }
+    }
+
+    public function indexRandom(){
+        $books = Book::orderByRaw("RAND()")->limit(3)->get("*");
+        if(!$books){
+            return \response(["No hay libros agregados"], 404);
+        }else{
+            return \response($books);
         }
     }
 }
